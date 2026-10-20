@@ -1,0 +1,24 @@
+# =====================================================================
+# Profil « postgres » (par défaut) : base PostgreSQL, données conservées.
+#
+# Base attendue : autotrack, utilisateur autotrack / autotrack, port 5432
+#   - Docker : docker compose up -d postgres
+#   - PostgreSQL installé : psql -U postgres -f backend/db/creer-base.sql
+# Autres identifiants : variables DB_URL, DB_USER, DB_PASSWORD
+#   ou fichier backend/config/application-postgres.yml (voir l'exemple).
+# =====================================================================
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:54333/autotrack}
+    username: ${DB_USER:autotrack}
+    password: ${DB_PASSWORD:autotrack}
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 10000
+  jpa:
+    hibernate:
+      # update : tables créées au premier démarrage, puis conservées avec les données.
+      # create : efface et recrée les tables → données de démo rechargées
+      #          (reinitialiser-demo.cmd, ou DDL_AUTO=create une seule fois).
+      ddl-auto: ${DDL_AUTO:update}

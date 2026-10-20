@@ -1,0 +1,25 @@
+# Base PostgreSQL du backend (profil par défaut « postgres »).
+# Démarrer : docker compose up -d postgres   ·   Effacer la base : docker compose down -v
+services:
+  postgres:
+    image: postgres:16
+    container_name: autotrack-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: autotrack
+      POSTGRES_USER: autotrack
+      POSTGRES_PASSWORD: autotrack
+      TZ: UTC
+    ports:
+      # Port du PC : 5432 par défaut. Si un PostgreSQL Windows l'occupe déjà :
+      #   set DB_PORT=5433  puis  DB_URL=jdbc:postgresql://localhost:5433/autotrack
+      - "${DB_PORT:-54333}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U autotrack -d autotrack"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - autotrack-db:/var/lib/postgresql/data
+volumes:
+  autotrack-db:

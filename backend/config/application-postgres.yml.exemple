@@ -1,0 +1,12 @@
+# Réglages PostgreSQL propres à ce poste.
+# 1. Copier ce fichier sous le nom  application-postgres.yml  (dans ce même dossier backend/config)
+# 2. Renseigner les identifiants de votre serveur PostgreSQL
+# 3. Démarrer depuis le dossier backend (demarrer.cmd ou mvn spring-boot:run) :
+#    Spring Boot lit automatiquement ./config/ et ce fichier prend le pas sur celui du projet.
+# Ce fichier contient un mot de passe : il n'est pas versionné (.gitignore).
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/autotrack
+    username: postgres
+    password: votre_mot_de_passe

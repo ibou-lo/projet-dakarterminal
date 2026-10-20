@@ -1,0 +1,20 @@
+# Java / Maven
+backend/target/
+backend/data/
+# Réglages locaux (mots de passe)
+backend/config/application*.yml
+*.class
+# Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+# Flutter
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+# IDE
+.idea/
+.vscode/
+*.iml
+.DS_Store

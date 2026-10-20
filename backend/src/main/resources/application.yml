@@ -1,0 +1,79 @@
+# =====================================================================
+# Dakar AutoTrack — configuration commune (tous profils)
+#
+# Profils :
+#   postgres (par défaut) → application-postgres.yml  : base PostgreSQL, données conservées
+#   h2                    → application-h2.yml        : base en mémoire, démo sans installation, tests
+#
+# Réglages propres à un poste (mot de passe de la base…) : NE PAS modifier ce fichier,
+# créer backend/config/application-postgres.yml (voir config/application-postgres.yml.exemple).
+# =====================================================================
+
+server:
+  port: ${SERVER_PORT:8080}
+  # Pas de détails techniques dans les réponses d'erreur (ASVS V7.4)
+  error:
+    include-stacktrace: never
+    include-exception: false
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: dakar-autotrack
+  profiles:
+    default: postgres
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+  h2:
+    console:
+      enabled: false
+  servlet:
+    multipart:
+      max-file-size: 8MB
+      max-request-size: 10MB
+
+autotrack:
+  security:
+    # true en production : refus de démarrer avec les secrets de démo, la console H2 ou les données de démo
+    production: ${AUTOTRACK_PRODUCTION:false}
+    # Secrets de démonstration : à remplacer en production par des variables d'environnement
+    # (32 caractères minimum).
+    jwt-secret: ${AUTOTRACK_JWT_SECRET:change-me-dakar-autotrack-demo-secret-key-2026-!!}
+    access-token-minutes: 60
+    refresh-token-hours: 12
+    # Clé HMAC de signature des QR des tickets de retrait
+    ticket-secret: ${AUTOTRACK_TICKET_SECRET:change-me-ticket-signing-secret-2026}
+    # Origines autorisées (motifs) : Angular, Flutter web, téléphones du réseau local
+    allowed-origins: ${AUTOTRACK_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*,http://192.168.*.*:*,http://10.*.*.*:*}
+  demo:
+    # Chargement des données de démonstration quand la base est vide
+    seed: ${DEMO_SEED:true}
+    # Code SMS de démonstration pour l'espace client
+    client-sms-code: "5821"
+  ticket:
+    validity-hours: 48
+  storage:
+    photos-dir: ${PHOTOS_DIR:./data/photos}
+  audit:
+    # Conservation du journal d'audit (jours) — minimisation des données personnelles
+    retention-days: ${AUDIT_RETENTION_DAYS:365}
+
+springdoc:
+  # Documentation de l'API : à désactiver en production (API_DOCS=false)
+  api-docs:
+    enabled: ${API_DOCS:true}
+  swagger-ui:
+    enabled: ${API_DOCS:true}
+    path: /swagger-ui.html
+
+logging:
+  level:
+    sn.dakarterminal: INFO
+    # Avertissements Hibernate sans intérêt pour la démo
+    org.hibernate.orm.deprecation: ERROR
