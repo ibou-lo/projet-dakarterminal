@@ -10,6 +10,7 @@ frontend/dist/
 frontend/.angular/
 frontend/.vercel
 .vercel
+.railway
 # Flutter
 mobile/.dart_tool/
 mobile/build/

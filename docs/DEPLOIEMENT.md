@@ -2,6 +2,10 @@
 
 Dépôt GitHub : [ibou-lo/projet-dakarterminal](https://github.com/ibou-lo/projet-dakarterminal).
 
+Poste web déjà déployé : [https://dakar-autotrack-web.vercel.app](https://dakar-autotrack-web.vercel.app) (projet Vercel `dakar-autotrack-web`, racine `frontend`).
+
+L’API Railway n’est pas encore en ligne : le workspace Hobby répond `Deploys have been paused temporarily`. Dès que les déploiements sont réactivés (facturation / limite d’usage), suivre § 1, renseigner `RAILWAY_API_URL` sur Vercel, puis redéployer le poste web. En attendant, l’image Docker du backend a été vérifiée localement (`POST /api/auth/login` → jeton).
+
 Démo en ligne : comptes et données de démonstration conservés (`AUTOTRACK_PRODUCTION` reste `false`). HTTPS est fourni par Railway et Vercel.
 
 ```
