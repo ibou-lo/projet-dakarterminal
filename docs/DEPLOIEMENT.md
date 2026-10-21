@@ -1,5 +1,7 @@
 # Déploiement — Vercel, Railway, application mobile
 
+Dépôt GitHub : [ibou-lo/projet-dakarterminal](https://github.com/ibou-lo/projet-dakarterminal).
+
 Démo en ligne : comptes et données de démonstration conservés (`AUTOTRACK_PRODUCTION` reste `false`). HTTPS est fourni par Railway et Vercel.
 
 ```
@@ -27,6 +29,8 @@ Lier un service **PostgreSQL** au service backend. `DATABASE_URL` est alors inje
 
 Root Directory du service : `backend`. Builder : Dockerfile ([`backend/Dockerfile`](../backend/Dockerfile), JDK 17).
 
+Créer le projet : [Railway → New → GitHub](https://railway.app/new) → `ibou-lo/projet-dakarterminal` → Root Directory `backend` → Add Plugin **PostgreSQL** → coller les variables ci-dessus. Les CLI `railway` / `vercel` doivent être connectées (`railway login`, `vercel login`) pour un déploiement en ligne de commande.
+
 Après le premier déploiement, tester :
 
 ```bash
@@ -40,6 +44,8 @@ Un jeton `accessToken` doit être renvoyé.
 ## 2. Variables Vercel (poste web)
 
 Root Directory : `frontend`. Build : `node scripts/inject-api-base.js && npm run build`. Output : `dist/dakar-autotrack-web/browser`.
+
+Importer : [Vercel → Add New → Project](https://vercel.com/new) → `ibou-lo/projet-dakarterminal` → Root Directory `frontend` → variable `RAILWAY_API_URL`.
 
 | Variable | Valeur |
 |---|---|
