@@ -4,7 +4,7 @@ Dépôt GitHub : [ibou-lo/projet-dakarterminal](https://github.com/ibou-lo/proje
 
 Poste web : [https://dakar-autotrack-web.vercel.app](https://dakar-autotrack-web.vercel.app) (projet Vercel `dakar-autotrack-web`, racine `frontend`).
 
-API : Render (Docker JDK 17 + PostgreSQL), définie dans [`render.yaml`](../render.yaml).
+API : [https://autotrack-api-if5d.onrender.com](https://autotrack-api-if5d.onrender.com) (service Render `autotrack-api`, Docker JDK 17 + PostgreSQL). Tableau de bord : [srv-dbca9kfavr4c73fc3v60](https://dashboard.render.com/web/srv-dbca9kfavr4c73fc3v60).
 
 Démo en ligne : comptes README conservés (`AUTOTRACK_PRODUCTION` reste `false`). HTTPS est fourni par Render et Vercel.
 
@@ -56,7 +56,7 @@ Root Directory : `frontend`. Build : `node scripts/inject-api-base.js && npm run
 
 | Variable | Valeur |
 |---|---|
-| `API_BASE_URL` | URL publique Render, **sans** slash final, ex. `https://autotrack-api.onrender.com` |
+| `API_BASE_URL` | `https://autotrack-api-if5d.onrender.com` |
 
 (`RAILWAY_API_URL` est encore lu en repli.)
 
@@ -66,8 +66,8 @@ Connexion : `superviseur` / `Superviseur@2026`. Pages : `/parc`, un passeport VI
 
 ```bash
 cd mobile
-flutter run -d chrome --dart-define=API_BASE_URL=https://<service>.onrender.com
-flutter run --dart-define=API_BASE_URL=https://<service>.onrender.com
+flutter run -d chrome --dart-define=API_BASE_URL=https://autotrack-api-if5d.onrender.com
+flutter run --dart-define=API_BASE_URL=https://autotrack-api-if5d.onrender.com
 ```
 
 Comptes : `agent.diallo` / `Agent@2026` ; client BL `DKR-88341`, code SMS `5821`.
