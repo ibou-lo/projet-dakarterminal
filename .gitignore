@@ -14,6 +14,8 @@ frontend/.vercel
 # Flutter
 mobile/.dart_tool/
 mobile/build/
+docs/*.apk
+*.apk
 mobile/.flutter-plugins
 mobile/.flutter-plugins-dependencies
 # IDE

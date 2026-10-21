@@ -70,11 +70,39 @@ class ApiClient {
   Future<Session> clientLogin(String bl, String code) =>
       _authenticate('/api/client/login', {'blNumber': bl, 'smsCode': code});
 
+  static const _requestTimeout = Duration(seconds: 90);
+
   Future<Session> _authenticate(String path, Map<String, String> body) async {
-    final res = await http.post(_uri(path), headers: _jsonHeaders(null), body: jsonEncode(body));
+    await _wakeServer();
+    final res = await _postJson(path, body);
     final data = _decode(res) as Map<String, dynamic>;
     await _store(data);
     return session!;
+  }
+
+  /// L'instance Render Free s'endort : un GET préalable + quelques essais
+  /// évitent un échec au premier appel depuis le téléphone.
+  Future<void> _wakeServer() async {
+    try {
+      await http.get(_uri('/api/health')).timeout(_requestTimeout);
+    } catch (_) {}
+  }
+
+  Future<http.Response> _postJson(String path, Map<String, String> body) async {
+    Object? last;
+    for (var attempt = 1; attempt <= 3; attempt++) {
+      try {
+        return await http
+            .post(_uri(path), headers: _jsonHeaders(null), body: jsonEncode(body))
+            .timeout(_requestTimeout);
+      } catch (e) {
+        last = e;
+        if (attempt < 3) {
+          await Future<void>.delayed(Duration(seconds: 4 * attempt));
+        }
+      }
+    }
+    throw last ?? Exception('Serveur injoignable (${AppConfig.apiBaseUrl})');
   }
 
   Future<void> _store(Map<String, dynamic> t) async {

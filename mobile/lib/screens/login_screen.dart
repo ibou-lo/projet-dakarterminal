@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../api/api_client.dart';
+import '../config.dart';
 import '../theme.dart';
 import 'agent_home.dart';
 import 'client_screen.dart';
@@ -77,8 +78,14 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       if (mounted) {
         final msg = e.toString();
-        setState(() => _error = msg.contains('Failed to fetch') || msg.contains('SocketException') || msg.contains('Connection')
-            ? 'Serveur injoignable : vérifiez l\'adresse de l\'API et le réseau.'
+        setState(() => _error = msg.contains('Failed to fetch') ||
+                msg.contains('SocketException') ||
+                msg.contains('ClientException') ||
+                msg.contains('Timeout') ||
+                msg.contains('Timed out') ||
+                msg.contains('Connection')
+            ? 'Serveur injoignable (${AppConfig.apiBaseUrl}). '
+                'Vérifiez le réseau, puis réessayez : l\'API Render Free met parfois une minute à se réveiller.'
             : msg);
       }
     } finally {
@@ -145,13 +152,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         FilledButton(
                           onPressed: _busy ? null : _submit,
                           child: _busy
-                              ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.4, color: Colors.white))
+                              ? const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                  SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.4, color: Colors.white)),
+                                  SizedBox(width: 10),
+                                  Text('Connexion…'),
+                                ])
                               : Text(_client ? 'Suivre mon véhicule' : 'Se connecter'),
                         ),
                         const SizedBox(height: 22),
                         if (!_client) ..._demoBlock() else _clientHelp(),
                         const Spacer(),
                         const SizedBox(height: 16),
+                        Text(AppConfig.apiBaseUrl,
+                            textAlign: TextAlign.center,
+                            style: monoStyle.copyWith(fontSize: 11, color: DatColors.muted)),
+                        const SizedBox(height: 8),
                         const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                           Icon(Icons.verified_user_outlined, size: 16, color: DatColors.ok),
                           SizedBox(width: 6),

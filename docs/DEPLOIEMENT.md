@@ -64,6 +64,20 @@ Connexion : `superviseur` / `Superviseur@2026`. Pages : `/parc`, un passeport VI
 
 ## 3. Application mobile
 
+APK release (API Render déjà compilée) :
+
+- `docs/dakar-autotrack.apk`
+- `mobile/build/app/outputs/flutter-apk/app-release.apk`
+
+Transférer le fichier sur le téléphone, autoriser l’installation depuis une source inconnue, ouvrir l’APK.
+
+Rebuild :
+
+```bash
+cd mobile
+flutter build apk --release --dart-define=API_BASE_URL=https://autotrack-api-if5d.onrender.com
+```
+
 ```bash
 cd mobile
 flutter run -d chrome --dart-define=API_BASE_URL=https://autotrack-api-if5d.onrender.com

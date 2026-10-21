@@ -13,9 +13,11 @@ import 'package:flutter/foundation.dart';
 /// utiliser l'adresse IP du PC sur le Wi-Fi, ou l'URL HTTPS Render.
 class AppConfig {
   static const String _override = String.fromEnvironment('API_BASE_URL');
+  static const String productionApi = 'https://autotrack-api-if5d.onrender.com';
 
   static String get apiBaseUrl {
     if (_override.isNotEmpty) return _override;
+    if (kReleaseMode) return productionApi;
     if (kIsWeb) return 'http://localhost:8080';
     if (defaultTargetPlatform == TargetPlatform.android) return 'http://10.0.2.2:8080';
     return 'http://127.0.0.1:8080';
