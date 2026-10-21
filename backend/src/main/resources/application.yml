@@ -10,7 +10,8 @@
 # =====================================================================
 
 server:
-  port: ${SERVER_PORT:8080}
+  # Railway injecte PORT ; en local SERVER_PORT ou 8080.
+  port: ${PORT:${SERVER_PORT:8080}}
   # Pas de détails techniques dans les réponses d'erreur (ASVS V7.4)
   error:
     include-stacktrace: never
@@ -49,8 +50,8 @@ autotrack:
     refresh-token-hours: 12
     # Clé HMAC de signature des QR des tickets de retrait
     ticket-secret: ${AUTOTRACK_TICKET_SECRET:change-me-ticket-signing-secret-2026}
-    # Origines autorisées (motifs) : Angular, Flutter web, téléphones du réseau local
-    allowed-origins: ${AUTOTRACK_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*,http://192.168.*.*:*,http://10.*.*.*:*}
+    # Origines autorisées (motifs) : Angular local, Flutter web, réseau interne, Vercel
+    allowed-origins: ${AUTOTRACK_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*,http://192.168.*.*:*,http://10.*.*.*:*,https://*.vercel.app}
   demo:
     # Chargement des données de démonstration quand la base est vide
     seed: ${DEMO_SEED:true}

@@ -39,13 +39,18 @@ npm start          # ng serve avec proxy /api → http://localhost:8080
 ```
 Ouvrir http://localhost:4200
 
+### Déploiement (Vercel + Railway)
+
+Voir [`docs/DEPLOIEMENT.md`](docs/DEPLOIEMENT.md) : API et PostgreSQL sur Railway, poste web sur Vercel, Flutter pointé vers l’URL HTTPS de l’API.
+
 ### Application mobile
 ```bash
 cd mobile
 flutter create . --platforms=android,ios --project-name dakar_autotrack   # génère android/ et ios/ (une seule fois)
 flutter pub get
-flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8080                # émulateur Android
+flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8080                # émulateur Android (API locale)
 # téléphone réel sur le même Wi-Fi : --dart-define=API_BASE_URL=http://<IP_du_PC>:8080
+# API déployée (Railway) : --dart-define=API_BASE_URL=https://<app>.up.railway.app
 ```
 Permissions à ajouter après `flutter create` : voir [`mobile/README.md`](mobile/README.md).
 
