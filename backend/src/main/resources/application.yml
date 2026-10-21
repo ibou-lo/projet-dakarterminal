@@ -51,7 +51,7 @@ autotrack:
     # Clé HMAC de signature des QR des tickets de retrait
     ticket-secret: ${AUTOTRACK_TICKET_SECRET:change-me-ticket-signing-secret-2026}
     # Origines autorisées (motifs) : Angular local, Flutter web, réseau interne, Vercel
-    allowed-origins: ${AUTOTRACK_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*,http://192.168.*.*:*,http://10.*.*.*:*,https://*.vercel.app}
+    allowed-origins: ${AUTOTRACK_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*,http://192.168.*.*:*,http://10.*.*.*:*,https://*.vercel.app,https://*.onrender.com}
   demo:
     # Chargement des données de démonstration quand la base est vide
     seed: ${DEMO_SEED:true}

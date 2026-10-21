@@ -64,7 +64,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(antMatcher(HttpMethod.OPTIONS, "/**")).permitAll()
                         .requestMatchers(antMatcher("/api/auth/login"), antMatcher("/api/auth/refresh"),
-                                antMatcher("/api/client/login")).permitAll()
+                                antMatcher("/api/client/login"), antMatcher("/api/health")).permitAll()
                         .requestMatchers(antMatcher("/swagger-ui.html"), antMatcher("/swagger-ui/**"),
                                 antMatcher("/v3/api-docs/**"), antMatcher("/h2-console/**")).permitAll()
                         .requestMatchers(antMatcher("/api/client/**")).hasRole("CLIENT")

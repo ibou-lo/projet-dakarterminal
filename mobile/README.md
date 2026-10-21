@@ -12,7 +12,7 @@ Une seule application, trois profils selon le rôle porté par le JWT :
 flutter create . --platforms=android,ios --project-name dakar_autotrack
 flutter pub get
 flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8080
-# API déployée : --dart-define=API_BASE_URL=https://<app>.up.railway.app
+# API déployée : --dart-define=API_BASE_URL=https://<service>.onrender.com
 ```
 
 ### Android — `android/app/src/main/AndroidManifest.xml`

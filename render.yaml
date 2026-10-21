@@ -1,0 +1,40 @@
+# Blueprint Render : API Spring Boot (Docker JDK 17) + PostgreSQL.
+# Dashboard : New → Blueprint → ibou-lo/projet-dakarterminal
+services:
+  - type: web
+    name: autotrack-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    rootDir: backend
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: autotrack-db
+          property: connectionString
+      - key: JAVA_TOOL_OPTIONS
+        value: -XX:MaxRAMPercentage=75.0 -XX:+UseSerialGC
+      - key: AUTOTRACK_JWT_SECRET
+        generateValue: true
+      - key: AUTOTRACK_TICKET_SECRET
+        generateValue: true
+      - key: AUTOTRACK_ALLOWED_ORIGINS
+        value: https://*.vercel.app,http://localhost:*,http://127.0.0.1:*,https://*.onrender.com
+      - key: DEMO_SEED
+        value: "true"
+      - key: DDL_AUTO
+        value: update
+      - key: API_DOCS
+        value: "false"
+      - key: AUTOTRACK_PRODUCTION
+        value: "false"
+
+databases:
+  - name: autotrack-db
+    plan: free
+    region: frankfurt
+    databaseName: autotrack
+    user: autotrack
+    postgresMajorVersion: "16"

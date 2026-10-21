@@ -1,4 +1,4 @@
-# Image de production pour Railway : JDK 17 (Lombok n'est pas compatible avec le JDK 26).
+# Image de production (Render, Railway, etc.) : JDK 17 (Lombok n'est pas compatible avec le JDK 26).
 FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /src
 COPY pom.xml .

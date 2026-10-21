@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 ///
 /// L'URL de l'API peut être forcée au lancement :
 ///   flutter run --dart-define=API_BASE_URL=http://192.168.1.20:8080
-///   flutter run --dart-define=API_BASE_URL=https://<app>.up.railway.app
+///   flutter run --dart-define=API_BASE_URL=https://<service>.onrender.com
 /// Sinon, valeur par défaut selon la cible :
 ///   - navigateur (flutter run -d chrome) : http://localhost:8080
 ///   - émulateur Android : http://10.0.2.2:8080 (10.0.2.2 = le PC hôte)
 ///   - Windows / iOS simulateur : http://127.0.0.1:8080
 /// Sur un TÉLÉPHONE RÉEL, 127.0.0.1 désigne le téléphone lui-même :
-/// utiliser l'adresse IP du PC sur le Wi-Fi, ou l'URL HTTPS Railway.
+/// utiliser l'adresse IP du PC sur le Wi-Fi, ou l'URL HTTPS Render.
 class AppConfig {
   static const String _override = String.fromEnvironment('API_BASE_URL');
 
